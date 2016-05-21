@@ -1,0 +1,20 @@
+{
+  "name": "black-lamp/blcms-gallery",
+  "description": "Image gallery extention for Black-Lamp CMS",
+  "keywords": ["black-lamp", "cms", "yii2", "gallery", "images"],
+  "type": "yii2-extension",
+  "authors": [
+    {
+      "name": "Gutsulyak Vadim",
+      "email": "guts.vadim@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": ">=2.0.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "bl\\cms\\gallery\\": ""
+    }
+  }
+}
