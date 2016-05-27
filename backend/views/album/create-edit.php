@@ -24,7 +24,7 @@ $languages = Language::findAll(['active' => true]);
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="glyphicon glyphicon-list"></i>
-                <?= 'Album' ?>
+                <?= Yii::t('blcms-gallery/backend/album', 'Album') ?>
                 <? if(count($languages) > 1): ?>
                     <div class="dropdown pull-right">
                         <button class="btn btn-warning btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -62,10 +62,7 @@ $languages = Language::findAll(['active' => true]);
                                 ?>
                             </div>
                             <div class="col-md-12">
-                                <div class="i-check">
-
-                                <?= $form->field($album, 'show')->checkbox() ?>
-                                </div>
+                                <?= $form->field($album, 'show')->checkbox(['class' => 'i-checks']) ?>
                             </div>
                         </div>
                     </div>

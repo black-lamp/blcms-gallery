@@ -61,7 +61,8 @@ class GalleryAlbum extends ActiveRecord
         return [
             'id' => 'ID',
             'position' => 'Position',
-            'show' => 'Show',
+            'show' => Yii::t('blcms-gallery/backend/album', 'Show Album'),
+            'image_file' => Yii::t('blcms-gallery/backend/album', 'Set Album Image')
         ];
     }
 

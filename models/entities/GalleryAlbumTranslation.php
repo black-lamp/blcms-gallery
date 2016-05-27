@@ -59,7 +59,7 @@ class GalleryAlbumTranslation extends ActiveRecord
             'id' => 'ID',
             'album_id' => 'Album ID',
             'language_id' => 'Language ID',
-            'title' => 'Title',
+            'title' => Yii::t('blcms-gallery/backend/album', 'Album Title'),
         ];
     }
 
