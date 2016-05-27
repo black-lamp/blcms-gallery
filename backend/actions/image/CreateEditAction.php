@@ -1,11 +1,12 @@
 <?php
 namespace bl\cms\gallery\backend\actions\image;
+
 use bl\cms\gallery\models\entities\GalleryImage;
 use bl\cms\gallery\models\entities\GalleryImageTranslation;
 use bl\multilang\entities\Language;
+use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
-use Imagine\Imagick\Imagine;
 use Yii;
 use yii\base\Action;
 use yii\web\UploadedFile;
@@ -47,6 +48,7 @@ class CreateEditAction extends Action
                     try {
                         // save image
                         $fileName = $this->generateFileName($image->image_file->baseName);
+//                        die(\Imagick::getVersion());
                         $imagine = new Imagine();
                         $imagine->open($image->image_file->tempName)
                             ->save(Yii::getAlias($this->controller->module->imagesPath . '/' . $fileName . '-original.jpg'))
