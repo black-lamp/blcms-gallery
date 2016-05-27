@@ -3,6 +3,7 @@
 namespace bl\cms\gallery\models\entities;
 
 use bl\multilang\behaviors\TranslationBehavior;
+use bl\seo\behaviors\SeoDataBehavior;
 use Yii;
 use yii\db\ActiveRecord;
 

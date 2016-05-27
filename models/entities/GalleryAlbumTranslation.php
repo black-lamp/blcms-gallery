@@ -47,6 +47,7 @@ class GalleryAlbumTranslation extends ActiveRecord
             [['title'], 'string', 'max' => 255],
             [['language_id'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language_id' => 'id']],
             [['album_id'], 'exist', 'skipOnError' => true, 'targetClass' => GalleryAlbum::className(), 'targetAttribute' => ['album_id' => 'id']],
+            [['seoUrl', 'seoTitle', 'seoDescription', 'seoKeywords'], 'string']
         ];
     }
 

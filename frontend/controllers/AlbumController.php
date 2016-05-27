@@ -19,9 +19,30 @@ class AlbumController extends Controller
             ]);
 
         if(!empty($id)) {
-            $images->andWhere([
-                'album.id' => $id
-            ]);
+
+            $album = GalleryAlbum::findOne($id);
+
+            if(!empty($album)) {
+                $images->andWhere([
+                    'album.id' => $id
+                ]);
+
+                $albumTranslation = $album->translation;
+
+                if(!empty($albumTranslation)) {
+                    $this->view->title = $albumTranslation->seoTitle;
+                    $this->view->registerMetaTag([
+                        'name' => 'description',
+                        'content' => html_entity_decode($albumTranslation->seoDescription)
+                    ]);
+                    $this->view->registerMetaTag([
+                        'name' => 'keywords',
+                        'content' => html_entity_decode($albumTranslation->seoKeywords)
+                    ]);
+                }
+
+            }
+
         }
 
         return $this->render('view', [
