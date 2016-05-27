@@ -19,9 +19,6 @@ class AlbumController extends Controller
             'edit' => [
                 'class' => 'bl\cms\gallery\backend\actions\album\CreateEditAction'
             ],
-            'save' => [
-                'class' => 'bl\cms\gallery\backend\actions\album\SaveAction'
-            ],
             'list' => [
                 'class' => 'bl\cms\gallery\backend\actions\album\ListAction'
             ]
