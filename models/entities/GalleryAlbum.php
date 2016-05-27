@@ -74,6 +74,7 @@ class GalleryAlbum extends ActiveRecord
         return $this->hasMany(GalleryAlbumTranslation::className(), ['album_id' => 'id']);
     }
 
+    // TODO: remove this method
     public static function getImageSrc($imageName, $type) {
         return '/images/gallery/' . $imageName . '-' . $type . '.jpg';
     }
