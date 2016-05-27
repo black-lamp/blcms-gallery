@@ -4,6 +4,7 @@ use bl\cms\gallery\models\entities\GalleryAlbumTranslation;
 use bl\multilang\entities\Language;
 use dosamigos\tinymce\TinyMce;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
@@ -50,21 +51,28 @@ $languages = Language::findAll(['active' => true]);
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <?= $form->field($albumTranslation, 'title', [
-                                'inputOptions' => [
-                                    'class' => 'form-control'
-                                ]
-                            ])
-                        ?>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?= $form->field($albumTranslation, 'title', [
+                                        'inputOptions' => [
+                                            'class' => 'form-control'
+                                        ]
+                                    ])
+                                ?>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="i-check">
+
+                                <?= $form->field($album, 'show')->checkbox() ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        <?= $form->field($album, 'show')->checkbox() ?>
-                    </div>
-                    <div class="col-md-12">
-                        <?= $album->image_name ?>
-                    </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
+                        <? if(!empty($album->image_name)): ?>
+                            <?= Html::img(GalleryAlbum::getImageSrc($album->image_name, 'thumb')) ?>
+                        <? endif; ?>
                         <?= $form->field($album, 'image_file')->fileInput() ?>
                     </div>
                 </div>

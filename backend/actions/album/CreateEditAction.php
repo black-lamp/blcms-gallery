@@ -58,6 +58,7 @@ class CreateEditAction extends Action
                 if($album->validate() && $albumTranslation->validate()) {
                     $album->save();
                     $albumTranslation->album_id = $album->id;
+                    $albumTranslation->language_id = $language->id;
                     $albumTranslation->save();
 
                     $this->controller->redirect([

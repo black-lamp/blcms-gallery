@@ -7,5 +7,5 @@ namespace bl\cms\gallery\backend;
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'bl\cms\gallery\backend\controllers';
-    public $imagesPath = '@vendor/black-lamp/blcms-gallery/images';
+    public $imagesPath = '@frontend/web/images/gallery';
 }
