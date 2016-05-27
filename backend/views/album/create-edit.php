@@ -68,12 +68,12 @@ $languages = Language::findAll(['active' => true]);
                     </div>
                     <div class="col-md-4">
                         <? if(!empty($album->image_name)): ?>
-                            <?= Html::img(GalleryAlbum::getImageSrc($album->image_name, 'thumb')) ?>
+                            <?= Html::img(GalleryAlbum::getImageSrc($album->image_name, 'thumb'), ['class' => 'img-thumbnail']) ?>
                         <? endif; ?>
                         <?= $form->field($album, 'image_file')->fileInput() ?>
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary pull-right" value="<?= 'Save' ?>">
+                <?= Html::submitButton(Yii::t('blcms-gallery/backend/album', 'Save Album'), ['class' => 'btn btn-primary pull-right']) ?>
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@ $languages = Language::findAll(['active' => true]);
                     ]
                 ])->label('Seo Keywords')
                 ?>
-                <input type="submit" class="btn btn-primary pull-right" value="<?= 'Save' ?>">
+                <?= Html::submitButton(Yii::t('blcms-gallery/backend/album', 'Save Album'), ['class' => 'btn btn-primary pull-right']) ?>
             </div>
         </div>
     </div>

@@ -26,6 +26,7 @@ class Module extends \yii\base\Module
             'fileMap'        => [
                 'blcms-gallery/backend/album' => 'album.php',
                 'blcms-gallery/backend/image' => 'image.php',
+                'blcms-gallery/backend/main' => 'main.php',
             ],
         ];
     }

@@ -1,7 +1,7 @@
 <?php
-namespace bl\cms\gallery\backend\actions\album;
-use bl\cms\gallery\models\entities\GalleryAlbum;
-use bl\cms\gallery\models\entities\GalleryAlbumTranslation;
+namespace bl\cms\gallery\backend\actions\image;
+use bl\cms\gallery\models\entities\GalleryImage;
+use bl\cms\gallery\models\entities\GalleryImageTranslation;
 use bl\multilang\entities\Language;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
@@ -16,59 +16,59 @@ use yii\web\UploadedFile;
 class CreateEditAction extends Action
 {
     public function run($id = null, $langId = null) {
-        /* @var GalleryAlbum $album */
-        /* @var GalleryAlbumTranslation $albumTranslation */
+        /* @var GalleryImage $image */
+        /* @var GalleryImageTranslation $imageTranslation */
 
         $language = $langId == null ? Language::getDefault() : Language::findOne($langId);
 
         if(empty($id)) {
-            $album = new GalleryAlbum();
-            $album->show = true;
-            $albumTranslation = new GalleryAlbumTranslation();
+            $image = new GalleryImage();
+            $image->show = true;
+            $imageTranslation = new GalleryImageTranslation();
         }
         else {
-            $album = GalleryAlbum::findOne($id);
-            if(empty($album)) {
+            $image = GalleryImage::findOne($id);
+            if(empty($image)) {
                 return $this->controller->redirect('/gallery/album/list');
             }
 
-            $albumTranslation = $album->getTranslation($language->id);
-            if(empty($albumTranslation)) {
-                $albumTranslation = new GalleryAlbumTranslation();
+            $imageTranslation = $image->getTranslation($language->id);
+            if(empty($imageTranslation)) {
+                $imageTranslation = new GalleryImageTranslation();
             }
         }
 
         if(Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
-            if($album->load($post) && $albumTranslation->load($post)) {
-                $album->image_file = UploadedFile::getInstance($album, 'image_file');
+            if($image->load($post) && $imageTranslation->load($post)) {
+                $image->image_file = UploadedFile::getInstance($image, 'image_file');
 
-                if(!empty($album->image_file)) {
+                if(!empty($image->image_file)) {
                     try {
                         // save image
-                        $fileName = $this->generateFileName($album->image_file->baseName);
+                        $fileName = $this->generateFileName($image->image_file->baseName);
                         $imagine = new Imagine();
-                        $imagine->open($album->image_file->tempName)
+                        $imagine->open($image->image_file->tempName)
                             ->save(Yii::getAlias($this->controller->module->imagesPath . '/' . $fileName . '-original.jpg'))
                             ->thumbnail(new Box(400, 400), ImageInterface::THUMBNAIL_OUTBOUND)
                             ->save(Yii::getAlias($this->controller->module->imagesPath . '/' . $fileName . '-thumb.jpg'));
 
-                        $album->image_name = $fileName;
+                        $image->file_name = $fileName;
                     }
                     catch(\Exception $ex) {
-                        $album->addError('image_file', 'File save failed');
+                        $image->addError('image_file', 'File save failed');
                     }
                 }
 
-                if($album->validate() && $albumTranslation->validate()) {
-                    $album->save();
-                    $albumTranslation->album_id = $album->id;
-                    $albumTranslation->language_id = $language->id;
-                    $albumTranslation->save();
+                if($image->validate() && $imageTranslation->validate()) {
+                    $image->save();
+                    $imageTranslation->image_id = $image->id;
+                    $imageTranslation->language_id = $language->id;
+                    $imageTranslation->save();
 
                     $this->controller->redirect([
                         'edit',
-                        'id' => $album->id,
+                        'id' => $image->id,
                         'langId' => $language->id
                     ]);
                 }
@@ -76,8 +76,8 @@ class CreateEditAction extends Action
         }
 
         return $this->controller->render('create-edit', [
-            'album' => $album,
-            'albumTranslation' => $albumTranslation,
+            'image' => $image,
+            'imageTranslation' => $imageTranslation,
             'currentLanguage' => $language
         ]);
     }

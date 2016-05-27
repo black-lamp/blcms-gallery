@@ -31,7 +31,8 @@ class m160521_111517_create_gallery_album_tables extends Migration
             'gallery_album_translation',
             'album_id',
             'gallery_album',
-            'id'
+            'id',
+            'cascade'
         );
 
         $this->addForeignKey(

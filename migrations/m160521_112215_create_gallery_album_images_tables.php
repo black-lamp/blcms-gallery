@@ -14,8 +14,19 @@ class m160521_112215_create_gallery_album_images_tables extends Migration
     {
         $this->createTable('gallery_album_image', [
             'id' => $this->primaryKey(),
-            'file_name' => $this->string()
+            'file_name' => $this->string(),
+            'show' => $this->boolean(),
+            'album_id' => $this->integer()
         ]);
+
+        $this->addForeignKey(
+            'gallery_album_image:album_id',
+            'gallery_album_image',
+            'album_id',
+            'gallery_album',
+            'id',
+            'cascade'
+        );
 
         $this->createTable('gallery_album_image_translation', [
             'id' => $this->primaryKey(),
@@ -30,7 +41,8 @@ class m160521_112215_create_gallery_album_images_tables extends Migration
             'gallery_album_image_translation',
             'image_id',
             'gallery_album_image',
-            'id'
+            'id',
+            'cascade'
         );
 
         $this->addForeignKey(

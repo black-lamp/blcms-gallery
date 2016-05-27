@@ -10,8 +10,12 @@ use yii\db\ActiveRecord;
  * This is the model class for table "gallery_album_image".
  *
  * @property integer $id
+ * @property integer $album_id
+ * @property boolean $show
  * @property string $file_name
  *
+ * @property GalleryAlbum $album
+ * @property GalleryImageTranslation $translation
  * @property GalleryImageTranslation[] $translations
  */
 class GalleryImage extends ActiveRecord
@@ -44,7 +48,9 @@ class GalleryImage extends ActiveRecord
     {
         return [
             [['file_name'], 'string', 'max' => 255],
-            [['image_file'], 'file']
+            [['album_id'], 'exist', 'targetClass' => GalleryAlbum::className(), 'targetAttribute' => 'id'],
+            [['image_file'], 'file'],
+            [['show'], 'boolean']
         ];
     }
 
@@ -56,7 +62,17 @@ class GalleryImage extends ActiveRecord
         return [
             'id' => 'ID',
             'file_name' => 'File Name',
+            'show' => Yii::t('blcms-gallery/backend/image', 'Show Image'),
+            'album_id' => Yii::t('blcms-gallery/backend/album', 'Album')
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAlbum()
+    {
+        return $this->hasOne(GalleryAlbum::className(), ['id' => 'album_id']);
     }
 
     /**
@@ -64,6 +80,6 @@ class GalleryImage extends ActiveRecord
      */
     public function getTranslations()
     {
-        return $this->hasMany(GalleryAlbumTranslation::className(), ['image_id' => 'id']);
+        return $this->hasMany(GalleryImageTranslation::className(), ['image_id' => 'id']);
     }
 }

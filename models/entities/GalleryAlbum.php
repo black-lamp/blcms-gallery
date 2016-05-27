@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $position
- * @property integer $show
+ * @property boolean $show
  * @property string $image_name
  *
  * @property GalleryAlbumTranslation[] $translations
@@ -48,8 +48,9 @@ class GalleryAlbum extends ActiveRecord
     public function rules()
     {
         return [
-            [['position', 'show'], 'integer'],
-            [['image_file'], 'file']
+            [['position'], 'integer'],
+            [['image_file'], 'file'],
+            [['show'], 'boolean']
         ];
     }
 
