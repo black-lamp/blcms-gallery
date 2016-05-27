@@ -50,10 +50,14 @@ $languages = Language::findAll(['active' => true]);
                                             <?= $image->album->translation->title ?>
                                         </td>
                                         <td>
-                                            <?= $image->translation->title ?>
+                                            <? if(!empty($image->translation)): ?>
+                                                <?= $image->translation->title ?>
+                                            <? endif; ?>
                                         </td>
                                         <td>
-                                            <?= $image->translation->alt ?>
+                                            <? if(!empty($image->translation)): ?>
+                                                <?= $image->translation->alt ?>
+                                            <? endif; ?>
                                         </td>
                                         <td>
                                             <? if(count($languages) > 1): ?>
@@ -81,7 +85,7 @@ $languages = Language::findAll(['active' => true]);
 
                                         <td>
                                             <?= Html::a('',
-                                                ['edit', 'id' => $image->id, 'langId' => $image->translation->language->id],
+                                                ['edit', 'id' => $image->id, 'langId' => Language::getCurrent()->id],
                                                 ['class' => 'glyphicon glyphicon-edit text-warning btn btn-default btn-sm']
                                             ) ?>
                                         </td>

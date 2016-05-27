@@ -8,8 +8,10 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
+ * @var View $this
  * @var GalleryImage $image
  * @var GalleryImageTranslation $imageTranslation
  * @var Language $currentLanguage
@@ -39,6 +41,7 @@ $languages = Language::findAll(['active' => true]);
                                     <li>
                                         <a href="
                                             <?= Url::to([
+                                            '/' . Yii::$app->controller->getRoute(),
                                             'id' => $image->id,
                                             'langId' => $language->id])?>
                                             ">
@@ -62,7 +65,7 @@ $languages = Language::findAll(['active' => true]);
                                         ]
                                     ])->dropDownList(
                                         ['' => '-- ' . Yii::t('blcms-gallery/backend/image', 'no album') . ' --'] +
-                                        ArrayHelper::map(GalleryAlbumTranslation::findAll(['language_id' => $currentLanguage->id]), 'album_id', 'title')
+                                        ArrayHelper::map(GalleryAlbumTranslation::find()->groupBy('album_id')->all(), 'album_id', 'title')
                                     )
                                 ?>
                             </div>

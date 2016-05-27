@@ -37,6 +37,7 @@ $languages = Language::findAll(['active' => true]);
                                     <li>
                                         <a href="
                                             <?= Url::to([
+                                            '/' . Yii::$app->controller->getRoute(),
                                             'id' => $album->id,
                                             'langId' => $language->id])?>
                                             ">
