@@ -24,7 +24,8 @@ class Module extends \yii\base\Module
             'sourceLanguage' => 'en-US',
             'basePath'       => '@vendor/black-lamp/blcms-gallery/messages',
             'fileMap'        => [
-                'blcms-gallery/backend/album' => 'album.php'
+                'blcms-gallery/backend/album' => 'album.php',
+                'blcms-gallery/backend/image' => 'image.php',
             ],
         ];
     }

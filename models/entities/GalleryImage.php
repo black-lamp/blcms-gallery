@@ -16,6 +16,8 @@ use yii\db\ActiveRecord;
  */
 class GalleryImage extends ActiveRecord
 {
+    public $image_file;
+
     public function behaviors()
     {
         return [
@@ -42,6 +44,7 @@ class GalleryImage extends ActiveRecord
     {
         return [
             [['file_name'], 'string', 'max' => 255],
+            [['image_file'], 'file']
         ];
     }
 

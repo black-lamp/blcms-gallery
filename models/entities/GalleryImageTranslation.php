@@ -50,8 +50,8 @@ class GalleryImageTranslation extends ActiveRecord
             'id' => 'ID',
             'image_id' => 'Image ID',
             'language_id' => 'Language ID',
-            'title' => 'Title',
-            'alt' => 'Alt',
+            'title' => Yii::t('blcms-gallery/backend/image', 'Image Title'),
+            'alt' => Yii::t('blcms-gallery/backend/image', 'Alternative Text'),
         ];
     }
 
