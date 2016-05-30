@@ -47,7 +47,11 @@ $languages = Language::findAll(['active' => true]);
                                             <?= Html::img(GalleryAlbum::getImageSrc($image->file_name, 'thumb'), ['height' => '50']) ?>
                                         </td>
                                         <td>
-                                            <?= $image->album->translation->title ?>
+                                            <? if(!empty($image->album)): ?>
+                                                <? if(!empty($image->album->translation)): ?>
+                                                    <?= $image->album->translation->title ?>
+                                                <? endif; ?>
+                                            <? endif; ?>
                                         </td>
                                         <td>
                                             <? if(!empty($image->translation)): ?>
