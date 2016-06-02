@@ -132,7 +132,6 @@ class UrlRule extends Object implements UrlRuleInterface
                 ]);
 
                 $album = GalleryAlbum::findOne($id);
-//                die(var_dump($id));
                 if($album) {
                     $translation = $album->getTranslation($language->id);
                     if(!empty($translation)) {
