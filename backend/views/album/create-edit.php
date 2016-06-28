@@ -106,38 +106,14 @@ $languages = Language::findAll(['active' => true]);
                     'inputOptions' => [
                         'class' => 'form-control'
                     ]
-                ])->widget(TinyMce::className(), [
-                    'options' => ['rows' => 10],
-                    'language' => 'ru',
-                    'clientOptions' => [
-                        'plugins' => [
-                            'textcolor colorpicker',
-                            "advlist autolink lists link charmap print preview anchor",
-                            "searchreplace visualblocks code fullscreen",
-                            "insertdatetime media table contextmenu paste"
-                        ],
-                        'toolbar' => "undo redo | forecolor backcolor | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-                    ]
-                ])->label('Seo Description')
+                ])->textarea(['rows' => 3])->label('Seo Description')
                 ?>
 
                 <?= $form->field($albumTranslation, 'seoKeywords', [
                     'inputOptions' => [
                         'class' => 'form-control'
                     ]
-                ])->widget(TinyMce::className(), [
-                    'options' => ['rows' => 10],
-                    'language' => 'ru',
-                    'clientOptions' => [
-                        'plugins' => [
-                            'textcolor colorpicker',
-                            "advlist autolink lists link charmap print preview anchor",
-                            "searchreplace visualblocks code fullscreen",
-                            "insertdatetime media table contextmenu paste"
-                        ],
-                        'toolbar' => "undo redo | forecolor backcolor | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-                    ]
-                ])->label('Seo Keywords')
+                ])->textarea(['rows' => 3])->label('Seo Keywords')
                 ?>
                 <?= Html::submitButton(Yii::t('blcms-gallery/backend/album', 'Save Album'), ['class' => 'btn btn-primary pull-right']) ?>
             </div>
