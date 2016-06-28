@@ -3,7 +3,6 @@ namespace bl\cms\gallery\frontend\controllers;
 use bl\cms\gallery\models\entities\GalleryAlbum;
 use bl\cms\gallery\models\entities\GalleryImage;
 use yii\web\Controller;
-
 /**
  * @author Gutsulyak Vadim <guts.vadim@gmail.com>
  */
@@ -18,17 +17,15 @@ class AlbumController extends Controller
                 'album.show' => true,
             ]);
 
+        $album = null;
+
         if(!empty($id)) {
-
             $album = GalleryAlbum::findOne($id);
-
             if(!empty($album)) {
                 $images->andWhere([
                     'album.id' => $id
                 ]);
-
                 $albumTranslation = $album->translation;
-
                 if(!empty($albumTranslation)) {
                     $this->view->title = $albumTranslation->seoTitle;
                     $this->view->registerMetaTag([
@@ -40,12 +37,10 @@ class AlbumController extends Controller
                         'content' => html_entity_decode($albumTranslation->seoKeywords)
                     ]);
                 }
-
             }
-
         }
-
         return $this->render('view', [
+            'album' => $album,
             'images' => $images->all(),
             'albums' => GalleryAlbum::findAll(['show' => true]),
             'albumId' => $id
