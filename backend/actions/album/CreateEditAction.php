@@ -5,7 +5,7 @@ use bl\cms\gallery\models\entities\GalleryAlbumTranslation;
 use bl\multilang\entities\Language;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
-use Imagine\Imagick\Imagine;
+use Imagine\Gd\Imagine;
 use Yii;
 use yii\base\Action;
 use yii\web\UploadedFile;
@@ -56,6 +56,7 @@ class CreateEditAction extends Action
                         $album->image_name = $fileName;
                     }
                     catch(\Exception $ex) {
+                        die($ex);
                         $album->addError('image_file', 'File save failed');
                     }
                 }
