@@ -2,12 +2,23 @@
 namespace bl\cms\gallery\frontend\controllers;
 use bl\cms\gallery\models\entities\GalleryAlbum;
 use bl\cms\gallery\models\entities\GalleryImage;
+use bl\cms\seo\StaticPageBehavior;
 use yii\web\Controller;
 /**
  * @author Gutsulyak Vadim <guts.vadim@gmail.com>
  */
 class AlbumController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'staticPage' => [
+                'class' => StaticPageBehavior::className(),
+                'key' => 'gallery'
+            ]
+        ];
+    }
+    
     public function actionView($id = null) {
         $images = GalleryImage::find()
             ->from('gallery_album_image image')
@@ -38,6 +49,9 @@ class AlbumController extends Controller
                     ]);
                 }
             }
+        }
+        else {
+            $this->registerStaticSeoData();
         }
         return $this->render('view', [
             'album' => $album,
