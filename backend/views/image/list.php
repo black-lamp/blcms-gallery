@@ -25,55 +25,55 @@ $languages = Language::findAll(['active' => true]);
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-hover">
-                            <? if (!empty($images)): ?>
+                            <?php if (!empty($images)): ?>
                                 <thead>
                                 <tr>
                                     <th class="col-lg-1"><?= Yii::t('blcms-gallery/backend/main', 'Image') ?></th>
                                     <th class="col-lg-2"><?= Yii::t('blcms-gallery/backend/album', 'Album') ?></th>
                                     <th class="col-lg-3"><?= Yii::t('blcms-gallery/backend/image', 'Image Title') ?></th>
                                     <th class="col-lg-3"><?= Yii::t('blcms-gallery/backend/image', 'Alternative Text') ?></th>
-                                    <? if(count($languages) > 1): ?>
+                                    <?php if(count($languages) > 1): ?>
                                         <th class="col-lg-3"><?= Yii::t('blcms-gallery/backend/main', 'Translations') ?></th>
-                                    <? endif; ?>
+                                    <?php endif; ?>
                                     <th><?= Yii::t('blcms-gallery/backend/main', 'Show') ?></th>
                                     <th><?= Yii::t('blcms-gallery/backend/main', 'Edit') ?></th>
                                     <th><?= Yii::t('blcms-gallery/backend/main', 'Delete') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <? foreach ($images as $image): ?>
+                                <?php foreach ($images as $image): ?>
                                     <tr>
                                         <td>
                                             <?= Html::img(GalleryAlbum::getImageSrc($image->file_name, 'thumb'), ['height' => '50']) ?>
                                         </td>
                                         <td>
-                                            <? if(!empty($image->album)): ?>
-                                                <? if(!empty($image->album->translation)): ?>
+                                            <?php if(!empty($image->album)): ?>
+                                                <?php if(!empty($image->album->translation)): ?>
                                                     <?= $image->album->translation->title ?>
-                                                <? endif; ?>
-                                            <? endif; ?>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
-                                            <? if(!empty($image->translation)): ?>
+                                            <?php if(!empty($image->translation)): ?>
                                                 <?= $image->translation->title ?>
-                                            <? endif; ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
-                                            <? if(!empty($image->translation)): ?>
+                                            <?php if(!empty($image->translation)): ?>
                                                 <?= $image->translation->alt ?>
-                                            <? endif; ?>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
-                                            <? if(count($languages) > 1): ?>
-                                                <? $translations = ArrayHelper::index($image->translations, 'language_id') ?>
-                                                <? foreach ($languages as $language): ?>
+                                            <?php if(count($languages) > 1): ?>
+                                                <?php $translations = ArrayHelper::index($image->translations, 'language_id') ?>
+                                                <?php foreach ($languages as $language): ?>
                                                     <?= Html::a(
                                                         $language->name,
                                                         ['edit', 'id' => $image->id, 'langId' => $language->id],
                                                         ['class' => 'btn btn-xs btn-' . (empty($translations[$language->id]) ? 'danger' : 'primary')]
                                                     ) ?>
-                                                <? endforeach; ?>
-                                            <? endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </td>
 
                                         <td class="text-center">
@@ -101,9 +101,9 @@ $languages = Language::findAll(['active' => true]);
                                             ) ?>
                                         </td>
                                     </tr>
-                                <? endforeach; ?>
+                                <?php endforeach; ?>
                                 </tbody>
-                            <? endif; ?>
+                            <?php endif; ?>
                         </table>
                         <?= Html::a(
                             Yii::t('blcms-gallery/backend/image', 'Add Image'),
