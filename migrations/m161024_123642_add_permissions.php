@@ -22,10 +22,6 @@ class m161024_123642_add_permissions extends Migration
         $editImage->description = 'Edit image';
         $auth->add($editImage);
 
-        $switchShowImage = $auth->createPermission('switchShowImage');
-        $switchShowImage->description = 'Switch show for image';
-        $auth->add($switchShowImage);
-
         $removeImage = $auth->createPermission('removeImage');
         $removeImage->description = 'Remove image';
         $auth->add($removeImage);
@@ -42,10 +38,6 @@ class m161024_123642_add_permissions extends Migration
         $editAlbum = $auth->createPermission('editAlbum');
         $editAlbum->description = 'Edit image';
         $auth->add($editAlbum);
-
-        $switchShowAlbum = $auth->createPermission('switchShowAlbum');
-        $switchShowAlbum->description = 'Switch show for album';
-        $auth->add($switchShowAlbum);
 
         $removeAlbum = $auth->createPermission('removeAlbum');
         $removeAlbum->description = 'Remove image';
@@ -69,13 +61,11 @@ class m161024_123642_add_permissions extends Migration
         $auth->addChild($imageManager, $viewImageList);
         $auth->addChild($imageManager, $createImage);
         $auth->addChild($imageManager, $editImage);
-        $auth->addChild($imageManager, $switchShowImage);
         $auth->addChild($imageManager, $removeImage);
 
         $auth->addChild($albumManager, $viewAlbumList);
         $auth->addChild($albumManager, $createAlbum);
         $auth->addChild($albumManager, $editAlbum);
-        $auth->addChild($albumManager, $switchShowAlbum);
         $auth->addChild($albumManager, $removeAlbum);
 
 
