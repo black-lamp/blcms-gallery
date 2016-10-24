@@ -30,7 +30,7 @@ class AlbumController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['edit', 'switchShow'],
+                        'actions' => ['edit', 'switch-show'],
                         'roles' => ['editAlbum'],
                         'allow' => true,
                     ],

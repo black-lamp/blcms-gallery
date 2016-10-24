@@ -30,7 +30,7 @@ class ImageController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['edit', 'switchShow'],
+                        'actions' => ['edit', 'switch-show'],
                         'roles' => ['editImage'],
                         'allow' => true,
                     ],
