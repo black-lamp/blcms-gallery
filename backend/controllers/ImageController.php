@@ -1,7 +1,7 @@
 <?php
 namespace bl\cms\gallery\backend\controllers;
-use bl\cms\gallery\models\entities\GalleryAlbum;
 use bl\cms\gallery\models\entities\GalleryImage;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -10,6 +10,44 @@ use yii\web\Controller;
  */
 class ImageController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['list'],
+                        'roles' => ['viewImageList'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['create'],
+                        'roles' => ['createImage'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['edit', 'switchShow'],
+                        'roles' => ['editImage'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['remove'],
+                        'roles' => ['removeImage'],
+                        'allow' => true,
+                    ],
+                ],
+            ]
+        ];
+    }
+
     public $defaultAction = 'list';
 
     public function actions()
