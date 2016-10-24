@@ -24,6 +24,11 @@ class ImageController extends Controller
                         'allow' => true,
                     ],
                     [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'actions' => ['list'],
                         'roles' => ['viewImageList'],
                         'allow' => true,

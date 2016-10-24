@@ -24,6 +24,11 @@ class AlbumController extends Controller
                         'allow' => true,
                     ],
                     [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
                         'actions' => ['list'],
                         'roles' => ['viewAlbumList'],
                         'allow' => true,
