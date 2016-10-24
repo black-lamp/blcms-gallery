@@ -20,15 +20,6 @@ class AlbumController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
                         'actions' => ['list'],
                         'roles' => ['viewAlbumList'],
                         'allow' => true,
