@@ -18,22 +18,22 @@ $languages = Language::findAll(['active' => true]);
 
 ?>
 
-<? $form = ActiveForm::begin(['method'=>'post', 'options' => ['enctype' => 'multipart/form-data']]) ?>
+<?php $form = ActiveForm::begin(['method'=>'post', 'options' => ['enctype' => 'multipart/form-data']]) ?>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="glyphicon glyphicon-list"></i>
                 <?= Yii::t('blcms-gallery/backend/album', 'Album') ?>
-                <? if(count($languages) > 1): ?>
+                <?php if(count($languages) > 1): ?>
                     <div class="dropdown pull-right">
                         <button class="btn btn-warning btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <?= $currentLanguage->name ?>
                             <span class="caret"></span>
                         </button>
-                        <? if(count($languages) > 1): ?>
+                        <?php if(count($languages) > 1): ?>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <? foreach($languages as $language): ?>
+                                <?php foreach($languages as $language): ?>
                                     <li>
                                         <a href="
                                             <?= Url::to([
@@ -44,11 +44,11 @@ $languages = Language::findAll(['active' => true]);
                                             <?= $language->name?>
                                         </a>
                                     </li>
-                                <? endforeach; ?>
+                                <?php endforeach; ?>
                             </ul>
-                        <? endif; ?>
+                        <?php endif; ?>
                     </div>
-                <? endif; ?>
+                <?php endif; ?>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -68,9 +68,9 @@ $languages = Language::findAll(['active' => true]);
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <? if(!empty($album->image_name)): ?>
+                        <?php if(!empty($album->image_name)): ?>
                             <?= Html::img(GalleryAlbum::getImageSrc($album->image_name, 'thumb'), ['class' => 'img-thumbnail']) ?>
-                        <? endif; ?>
+                        <?php endif; ?>
                         <?= $form->field($album, 'image_file')->fileInput() ?>
                     </div>
                 </div>
@@ -121,4 +121,4 @@ $languages = Language::findAll(['active' => true]);
     </div>
 </div>
 
-<? $form->end() ?>
+<?php $form->end() ?>

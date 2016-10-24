@@ -25,21 +25,21 @@ $languages = Language::findAll(['active' => true]);
                 <div class="row">
                     <div class="col-md-12">
                         <table class="table table-hover">
-                            <? if (!empty($albums)): ?>
+                            <?php if (!empty($albums)): ?>
                                 <thead>
                                 <tr>
                                     <th class="col-lg-1"><?= Yii::t('blcms-gallery/backend/main', 'Image') ?></th>
                                     <th class="col-lg-5"><?= Yii::t('blcms-gallery/backend/album', 'Album Title') ?></th>
-                                    <? if(count($languages) > 1): ?>
+                                    <?php if(count($languages) > 1): ?>
                                         <th class="col-lg-3"><?= Yii::t('blcms-gallery/backend/main', 'Translations') ?></th>
-                                    <? endif; ?>
+                                    <?php endif; ?>
                                     <th><?= Yii::t('blcms-gallery/backend/main', 'Show') ?></th>
                                     <th><?= Yii::t('blcms-gallery/backend/main', 'Edit') ?></th>
                                     <th><?= Yii::t('blcms-gallery/backend/main', 'Delete') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <? foreach ($albums as $album): ?>
+                                <?php foreach ($albums as $album): ?>
                                     <tr>
                                         <td>
                                             <?= Html::img(GalleryAlbum::getImageSrc($album->image_name, 'thumb'), ['height' => '50']) ?>
@@ -48,16 +48,16 @@ $languages = Language::findAll(['active' => true]);
                                             <?= $album->translation->title ?>
                                         </td>
                                         <td>
-                                            <? if(count($languages) > 1): ?>
-                                                <? $translations = ArrayHelper::index($album->translations, 'language_id') ?>
-                                                <? foreach ($languages as $language): ?>
+                                            <?php if(count($languages) > 1): ?>
+                                                <?php $translations = ArrayHelper::index($album->translations, 'language_id') ?>
+                                                <?php foreach ($languages as $language): ?>
                                                     <?= Html::a(
                                                         $language->name,
                                                         ['edit', 'id' => $album->id, 'langId' => $language->id],
                                                         ['class' => 'btn btn-xs btn-' . (empty($translations[$language->id]) ? 'danger' : 'primary')]
                                                     ) ?>
-                                                <? endforeach; ?>
-                                            <? endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </td>
 
                                         <td class="text-center">
@@ -85,9 +85,9 @@ $languages = Language::findAll(['active' => true]);
                                             ) ?>
                                         </td>
                                     </tr>
-                                <? endforeach; ?>
+                                <?php endforeach; ?>
                                 </tbody>
-                            <? endif; ?>
+                            <?php endif; ?>
                         </table>
                         <?= Html::a(
                             Yii::t('blcms-gallery/backend/album', 'Add Album'),
