@@ -5,6 +5,7 @@ yii migrate --migrationPath=@vendor/black-lamp/blcms-gallery/migrations
 
 
 **Roles and its permissions:**
+
 _Image manager_
 - viewImageList
 - createImage
