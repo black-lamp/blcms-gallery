@@ -80,4 +80,13 @@ class GalleryAlbum extends ActiveRecord
     public static function getImageSrc($imageName, $type) {
         return '/images/gallery/' . $imageName . '-' . $type . '.jpg';
     }
+
+    /**
+     * @param int $albumId Current album id.
+     * @return bool
+     */
+    public function isActive($albumId)
+    {
+        return ($albumId == $this->id);
+    }
 }
