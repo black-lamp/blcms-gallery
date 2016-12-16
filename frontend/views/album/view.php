@@ -13,7 +13,7 @@ use yii\helpers\Html;
 
 ?>
 
-<div class="col-md-3">
+<div class="col-sm-3">
     <div class="row">
         <div class="list-group">
             <?php foreach ($albums as $galleryAlbum) : ?>
@@ -24,7 +24,7 @@ use yii\helpers\Html;
         </div>
     </div>
 </div>
-<div class="col-md-9">
+<div class="col-sm-9">
     <div class="row">
         <?php if (!empty($album)): ?>
             <div class="panel-body">
@@ -40,10 +40,12 @@ use yii\helpers\Html;
             <?= \bl\cms\gallery\frontend\widgets\Gallery::widget([
                 'items' => $images,
                 'itemOptions' => [
-                    'class' => 'thumbnail col-md-4',
-                    'style' => [
-                        'margin' => '5px 5px',
-                    ]
+                    'class' => 'col-xs-4 col-sm-4 col-md-3',
+                    'style' => ['padding-left' => '0']
+                ],
+                'imageOptions' => [
+                    'class' => 'thumbnail',
+                    'style' => ['width' => '100%', 'height' => 'auto']
                 ]
             ]); ?>
         </div>
