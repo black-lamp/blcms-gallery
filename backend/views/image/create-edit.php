@@ -1,6 +1,5 @@
 <?php
 use bl\cms\gallery\models\entities\GalleryAlbum;
-use bl\cms\gallery\models\entities\GalleryAlbumTranslation;
 use bl\cms\gallery\models\entities\GalleryImage;
 use bl\cms\gallery\models\entities\GalleryImageTranslation;
 use bl\multilang\entities\Language;
@@ -14,6 +13,7 @@ use yii\web\View;
  * @var View $this
  * @var GalleryImage $image
  * @var GalleryImageTranslation $imageTranslation
+ * @var GalleryAlbum[] $albums
  * @var Language $currentLanguage
  * @var Language[] $languages
  */
@@ -65,7 +65,7 @@ $languages = Language::findAll(['active' => true]);
                                         ]
                                     ])->dropDownList(
                                         ['' => '-- ' . Yii::t('blcms-gallery/backend/image', 'no album') . ' --'] +
-                                        ArrayHelper::map(GalleryAlbumTranslation::find()->groupBy('album_id')->all(), 'album_id', 'title')
+                                        ArrayHelper::map($albums, 'id', 'translation.title')
                                     )
                                 ?>
                             </div>

@@ -1,6 +1,7 @@
 <?php
 namespace bl\cms\gallery\backend\actions\image;
 
+use bl\cms\gallery\models\entities\GalleryAlbum;
 use bl\cms\gallery\models\entities\GalleryImage;
 use bl\cms\gallery\models\entities\GalleryImageTranslation;
 use bl\multilang\entities\Language;
@@ -77,10 +78,13 @@ class CreateEditAction extends Action
             }
         }
 
+        $albums = GalleryAlbum::find()->all();
+
         return $this->controller->render('create-edit', [
             'image' => $image,
             'imageTranslation' => $imageTranslation,
-            'currentLanguage' => $language
+            'currentLanguage' => $language,
+            'albums' => $albums
         ]);
     }
 
