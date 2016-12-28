@@ -28,6 +28,27 @@ class Gallery extends \dosamigos\gallery\Gallery
      */
     public $imageOptions;
 
+    /**
+     * @var bool Randomize items.
+     */
+    public $random = false;
+
+
+    /**
+     * @inheritdoc
+     */
+    public function renderItems()
+    {
+        $items = [];
+        foreach ($this->items as $item) {
+            $items[] = $this->renderItem($item);
+        }
+        if ($this->random) {
+            shuffle($items);
+        }
+
+        return Html::tag('div', implode("\n", array_filter($items)), $this->options);
+    }
 
     /**
      * @param GalleryImage $item
