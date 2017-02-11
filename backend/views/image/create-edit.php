@@ -23,43 +23,43 @@ $languages = Language::findAll(['active' => true]);
 ?>
 
 <?php $form = ActiveForm::begin(['method'=>'post', 'options' => ['enctype' => 'multipart/form-data']]) ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="glyphicon glyphicon-list"></i>
-                <?= Yii::t('blcms-gallery/backend/image', 'Album Image') ?>
-                <?php if(count($languages) > 1): ?>
-                    <div class="dropdown pull-right">
-                        <button class="btn btn-warning btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <?= $currentLanguage->name ?>
-                            <span class="caret"></span>
-                        </button>
-                        <?php if(count($languages) > 1): ?>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <?php foreach($languages as $language): ?>
-                                    <li>
-                                        <a href="
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-list"></i>
+                    <?= Yii::t('blcms-gallery/backend/image', 'Album Image') ?>
+                    <?php if(count($languages) > 1): ?>
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-warning btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <?= $currentLanguage->name ?>
+                                <span class="caret"></span>
+                            </button>
+                            <?php if(count($languages) > 1): ?>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <?php foreach($languages as $language): ?>
+                                        <li>
+                                            <a href="
                                             <?= Url::to([
-                                            '/' . Yii::$app->controller->getRoute(),
-                                            'id' => $image->id,
-                                            'langId' => $language->id])?>
+                                                '/' . Yii::$app->controller->getRoute(),
+                                                'id' => $image->id,
+                                                'langId' => $language->id])?>
                                             ">
-                                            <?= $language->name?>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?= $form->field($image, 'album_id', [
+                                                <?= $language->name?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <?= $form->field($image, 'album_id', [
                                         'inputOptions' => [
                                             'class' => 'form-control'
                                         ]
@@ -67,40 +67,44 @@ $languages = Language::findAll(['active' => true]);
                                         ['' => '-- ' . Yii::t('blcms-gallery/backend/image', 'no album') . ' --'] +
                                         ArrayHelper::map($albums, 'id', 'translation.title')
                                     )
-                                ?>
-                            </div>
-                            <div class="col-md-12">
-                                <?= $form->field($imageTranslation, 'title', [
+                                    ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <?= $form->field($imageTranslation, 'title', [
                                         'inputOptions' => [
                                             'class' => 'form-control'
                                         ]
                                     ])
-                                ?>
-                            </div>
-                            <div class="col-md-12">
-                                <?= $form->field($imageTranslation, 'alt', [
+                                    ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <?= $form->field($imageTranslation, 'alt', [
                                         'inputOptions' => [
                                             'class' => 'form-control'
                                         ]
                                     ])
-                                ?>
-                            </div>
-                            <div class="col-md-12">
-                                <?= $form->field($image, 'show')->checkbox(['class' => 'i-checks']) ?>
+                                    ?>
+                                </div>
+                                <div class="col-md-12">
+                                    <?= $form->field($image, 'show')->checkbox(['class' => 'i-checks']) ?>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <?php if(!empty($image->file_name)): ?>
+                                <?= Html::img(GalleryAlbum::getImageSrc($image->file_name, 'thumb'), ['class' => 'img-thumbnail']) ?>
+                                <div>
+                                    Original:
+                                    <?= GalleryAlbum::getImageSrc($image->file_name, 'original') ?>
+                                </div>
+                            <?php endif; ?>
+                            <?= $form->field($image, 'image_file')->fileInput() ?>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <?php if(!empty($image->file_name)): ?>
-                            <?= Html::img(GalleryAlbum::getImageSrc($image->file_name, 'thumb'), ['class' => 'img-thumbnail']) ?>
-                        <?php endif; ?>
-                        <?= $form->field($image, 'image_file')->fileInput() ?>
-                    </div>
+                    <?= Html::submitButton(Yii::t('blcms-gallery/backend/image', 'Save Image'), ['class' => 'btn btn-primary pull-right']) ?>
                 </div>
-                <?= Html::submitButton(Yii::t('blcms-gallery/backend/image', 'Save Image'), ['class' => 'btn btn-primary pull-right']) ?>
             </div>
         </div>
     </div>
-</div>
 
 <?php $form->end() ?>
