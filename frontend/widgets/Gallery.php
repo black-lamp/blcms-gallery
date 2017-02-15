@@ -1,10 +1,14 @@
 <?php
-
 namespace bl\cms\gallery\frontend\widgets;
 
+use bl\cms\gallery\frontend\BlcmsGalleryAsset;
 use bl\cms\gallery\models\entities\GalleryAlbum;
 use bl\cms\gallery\models\entities\GalleryImage;
+use dosamigos\gallery\GalleryAsset;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\web\JsExpression;
 
 /**
  * Gallery renders a BlueImp Gallery items
@@ -21,18 +25,58 @@ class Gallery extends \dosamigos\gallery\Gallery
     /**
      * @var array HTML attributes of the link.
      */
-    public $itemOptions;
+    public $itemOptions = [];
 
     /**
      * @var array HTML attributes of the image to be displayed.
      */
-    public $imageOptions;
+    public $imageOptions = [];
+
+    /**
+     * @var array HTML attributes of the image container.
+     */
+    public $itemContainerOptions = [];
 
     /**
      * @var bool Randomize items.
      */
     public $random = false;
 
+    /**
+     * @var bool
+     */
+    public $showDownloadButton = false;
+
+    /**
+     * @var array HTML attributes of the download button.
+     */
+    public $downloadButtonOptions = [];
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        if (!isset($this->options['id'])) {
+            $this->options['id'] = $this->getId();
+        }
+        $this->templateOptions['id'] = ArrayHelper::getValue($this->templateOptions, 'id', 'blueimp-gallery');
+        Html::addCssClass($this->templateOptions, 'blueimp-gallery');
+        if ($this->showControls) {
+            Html::addCssClass($this->templateOptions, 'blueimp-gallery-controls');
+        }
+
+        if (!ArrayHelper::isIn('icon', $this->downloadButtonOptions)) {
+            $this->downloadButtonOptions['icon'] = 'glyphicon glyphicon-download-alt';
+        }
+
+        foreach($this->clientEvents as $key => $event) {
+            if(!($event instanceof JsExpression)) {
+                $this->clientOptions[$key] = new JsExpression($event);
+            }
+        }
+    }
 
     /**
      * @inheritdoc
@@ -66,13 +110,46 @@ class Gallery extends \dosamigos\gallery\Gallery
         }
 
         $original = GalleryAlbum::getImageSrc($item->file_name, 'original');
-
         $url = (!empty($original)) ? $original : $thumb;
-        $this->itemOptions['title'] = $item->translation->title;
-        $this->imageOptions['alt'] = $item->translation->alt;
-        Html::addCssClass($this->itemOptions, 'gallery-item');
 
-        return Html::a(Html::img($thumb, $this->imageOptions), $url, $this->itemOptions);
+        $this->itemOptions['title'] = $item->translation->title;
+        Html::addCssClass($this->itemOptions, 'gallery-item');
+        Html::addCssClass($this->itemContainerOptions, 'gallery-item-container');
+        $this->imageOptions['alt'] = $item->translation->alt;
+        $this->downloadButtonOptions['download'] = $url;
+        Html::addCssClass($this->downloadButtonOptions, 'btn-download-gallery-item');
+
+        $item = Html::a(Html::img($thumb, $this->imageOptions), $url, $this->itemOptions);
+
+        if($this->showDownloadButton) {
+            $icon = Html::tag('i', '', ['class' => ArrayHelper::getValue($this->downloadButtonOptions, 'icon')]);
+            $item .= Html::a($icon, $url, $this->downloadButtonOptions);
+        }
+
+        return Html::tag('div', $item, $this->itemContainerOptions);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function registerClientScript()
+    {
+        $view = $this->getView();
+        GalleryAsset::register($view);
+        BlcmsGalleryAsset::register($view);
+
+        $id = $this->options['id'];
+        $options = Json::encode($this->clientOptions);
+        $js = "blcms.gallery.registerLightBoxHandlers('#$id a.gallery-item', $options);";
+        $view->registerJs($js);
+
+        if (!empty($this->clientEvents)) {
+            $js = [];
+            foreach ($this->clientEvents as $event => $handler) {
+                $js[] = "jQuery('$id').on('$event', $handler);";
+            }
+            $view->registerJs(implode("\n", $js));
+        }
     }
 
 }
