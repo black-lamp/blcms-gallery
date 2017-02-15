@@ -53,6 +53,11 @@ class Gallery extends \dosamigos\gallery\Gallery
     public $downloadButtonOptions = [];
 
     /**
+     * @var string
+     */
+    public $downloadButtonIcon = '<i class="glyphicon glyphicon-download-alt"></i>';
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -65,10 +70,6 @@ class Gallery extends \dosamigos\gallery\Gallery
         Html::addCssClass($this->templateOptions, 'blueimp-gallery');
         if ($this->showControls) {
             Html::addCssClass($this->templateOptions, 'blueimp-gallery-controls');
-        }
-
-        if (!ArrayHelper::isIn('icon', $this->downloadButtonOptions)) {
-            $this->downloadButtonOptions['icon'] = 'glyphicon glyphicon-download-alt';
         }
 
         foreach($this->clientEvents as $key => $event) {
@@ -117,13 +118,12 @@ class Gallery extends \dosamigos\gallery\Gallery
         Html::addCssClass($this->itemContainerOptions, 'gallery-item-container');
         $this->imageOptions['alt'] = $item->translation->alt;
         $this->downloadButtonOptions['download'] = $url;
-        Html::addCssClass($this->downloadButtonOptions, 'btn-download-gallery-item');
+        Html::addCssClass($this->downloadButtonOptions, 'download-gallery-item');
 
         $item = Html::a(Html::img($thumb, $this->imageOptions), $url, $this->itemOptions);
 
-        if($this->showDownloadButton) {
-            $icon = Html::tag('i', '', ['class' => ArrayHelper::getValue($this->downloadButtonOptions, 'icon')]);
-            $item .= Html::a($icon, $url, $this->downloadButtonOptions);
+        if($this->showDownloadButton) {;
+            $item .= Html::a($this->downloadButtonIcon, $url, $this->downloadButtonOptions);
         }
 
         return Html::tag('div', $item, $this->itemContainerOptions);
