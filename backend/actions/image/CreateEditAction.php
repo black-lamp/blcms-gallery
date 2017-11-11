@@ -34,7 +34,7 @@ class CreateEditAction extends Action
                 return $this->controller->redirect('/gallery/album/list');
             }
 
-            $imageTranslation = $image->getTranslation($language->id);
+            $imageTranslation = $image->getTranslation($language->id)->one();
             if(empty($imageTranslation)) {
                 $imageTranslation = new GalleryImageTranslation();
             }
