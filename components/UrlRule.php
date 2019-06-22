@@ -7,7 +7,7 @@ use bl\multilang\entities\Language;
 use bl\seo\entities\SeoData;
 use common\entities\Album;
 use Yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 use yii\web\NotFoundHttpException;
 use yii\web\Request;
 use yii\web\UrlManager;
@@ -16,7 +16,7 @@ use yii\web\UrlRuleInterface;
 /**
  * @author Gutsulyak Vadim <guts.vadim@gmail.com>
  */
-class UrlRule extends Object implements UrlRuleInterface
+class UrlRule extends BaseObject implements UrlRuleInterface
 {
     public $prefix = '';
     public $disableDefault = true;
